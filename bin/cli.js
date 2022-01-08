@@ -5,14 +5,12 @@
 
 const program = require('commander')
 
-
 // 包信息
 const packageInfo = require('../package.json')
 
 // 获取版本号
 program.version(`v${packageInfo.version}`)
-program.name(`j-cli`).usage(`<command> [option]`)
-
+program.name('j-cli').usage('<command> [option]')
 
 // 配置命令
 program
@@ -22,7 +20,6 @@ program
   .action((name, options) => {
     require('../lib/create.js')(name, options)
   })
-
 
 // 解析用户实行命令传入参数
 program.parse(process.argv)
