@@ -8,8 +8,8 @@
 
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const {VueLoaderPlugin} = require('vue-loader')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const { VueLoaderPlugin } = require('vue-loader')
 
 module.exports = {
   // 环境变量
@@ -47,9 +47,9 @@ module.exports = {
     new CleanWebpackPlugin(),
     new VueLoaderPlugin(),
   ],
-  resolve:{
+  resolve: {
     // alias: {
     //   vue: "vue/dist/vue.esm-browser.js"
     // }
-  }
+  },
 }

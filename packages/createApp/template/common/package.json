@@ -1,0 +1,16 @@
+{
+    "name": "create-project",
+    "version": "1.0.0",
+    "description": "",
+    "main": "",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "serve": "cross-env NODE_ENV=development webpack server",
+      "build": "cross-env NODE_ENV=production webpack"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "devDependencies": { },
+    "dependencies": { }
+  }

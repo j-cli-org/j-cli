@@ -10,16 +10,20 @@ const packageInfo = require('../package.json')
 
 // 获取版本号
 program.version(`v${packageInfo.version}`)
-program.name('j-cli').usage('<command> [option]')
+program.name('jcli').usage('<command> [option]')
 
 // 配置命令
+// 创建项目
 program
-  .command('create <app-name>')
+  .command('create')
   .description('create a new project')
+  .argument('<app-name>', 'app name')
   .option('-f, --force', 'overwrite target directory if it exist')
   .action((name, options) => {
-    require('../lib/create.js')(name, options)
+    // console.log('created!', name, options)
+    require('../packages/createApp/create.js')(name, options)
   })
 
 // 解析用户实行命令传入参数
 program.parse(process.argv)
+// console.log('agrv', program.parse())
