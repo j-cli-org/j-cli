@@ -1,6 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-
+# prepare-commit-msg 钩子在pre-commit钩子在文本编辑器中生成提交信息之后被调用。这被用来方便地修改自动生成的squash或merge提交。
+# /dev/tty --> 当前控制台
 exec < /dev/tty && node_modules/.bin/cz --hook
+
 

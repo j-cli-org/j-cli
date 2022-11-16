@@ -118,6 +118,7 @@ async function create(name, options) {
                 pkgInfo.devDependencies,
                 devDependenciesMap.commitlint
             )
+            pkgInfo.scripts.prepare = 'husky install'
             FileUtil.copy(sourceDirMap.commitlint, targetDir)
         }
 
@@ -134,7 +135,9 @@ async function downloadTemplate(targetDir) {
     try {
         // const repo = await api.getRepoList()
         repoList = await loading(getRepoList, 'Fetching template info...')
-    } catch (err) {}
+    } catch (err) {
+        console.error('downloadTemplate error', err)
+    }
 
     const repoNameList = repoList.map((repo) => repo.name)
 

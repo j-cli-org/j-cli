@@ -10,7 +10,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "serve": "cross-env NODE_ENV=development webpack server",
-    "build": "cross-env NODE_ENV=production webpack"
+    "build": "cross-env NODE_ENV=production webpack",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -51,6 +52,7 @@
     "fs-extra": "^10.0.0",
     "inquirer": "^8.1.0",
     "ora": "^5.4.1",
+    "tinify": "^1.7.1",
     "vue": "^3.1.1"
   },
   "config": {
