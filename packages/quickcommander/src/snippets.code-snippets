@@ -1,0 +1,102 @@
+{
+	"fn": {
+		"prefix": "fn",
+		"body": [
+			"/**",
+			" * @desc ${1: function description}",
+			" * @param ${2: function parameter}",
+			" */"
+		],
+		"description": "函数注释"
+	},
+	"fl": {
+		"prefix": "fl",
+		"body": [
+			"/**",
+			" * @desc ${1}",
+			" * @summary $2",
+			" * @example $3",
+			" */"
+		],
+		"description": "文件注释"
+	},
+	"im": {
+		"prefix": "im",
+		"body": [
+			"import ${1:modulename} from '${2:module}'"
+		],
+		"description": "引入模块"
+	},
+	"cm": {
+		"prefix": "cm",
+		"body": [
+			"/** $1 */"
+		],
+		"description": "注释"
+	},
+	"rq": {
+		"prefix": "rq",
+		"body": [
+			"const ${1|one,two,three|} =  require('$2')"
+		],
+		"description": "引入模块"
+	},
+	"vu": {
+		"prefix": "vu",
+		"body": [
+			"<template>",
+			"    <div>$1</div>",
+			"</template>",
+			"<script lang='ts'>",
+			"export default {",
+			"    components: {},",
+			"    data() {",
+			"        return {",
+			"        };",
+			"    },",
+			"    computed: {},",
+			"    created() {},",
+			"    methods: {}",
+			"};",
+			"</script>",
+			"<style lang='scss' scoped>",
+			"</style>"
+		],
+		"description": "vue文件模版"
+	},
+	"api": {
+		"prefix": "api",
+		"body": [
+			"async ${1:function name} () {",
+			"    try {",
+			"        const ${2:return result} = await PaperAction.$3({",
+			"            type: '$4'",
+			"            contentType: 'application/json; charset=UTF-8'",
+			"    })",
+			"        return Promise.resolve()",
+			"    } catch (e) {",
+			"        return Promise.reject(e)",
+			"    }",
+			"}"
+		],
+		"description": "接口函数"
+	},
+	"v3": {
+		"prefix": "v3",
+		"body": [
+			"<!--",
+			" * @Author ${1:your name}",
+			" * @description ${2:file description}",
+			"-->",
+			"<template>",
+			"    <div>${3:template}</div>",
+			"</template>",
+			"<script lang='ts' setup>",
+			"import { onMounted } from 'vue';",
+			"</script>",
+			"<style lang='scss'>",
+			"</style>"
+		],
+		"description": "vue3文件模版"
+	}
+}

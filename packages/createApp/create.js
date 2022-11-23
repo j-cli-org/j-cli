@@ -92,10 +92,13 @@ async function create(name, options) {
                 prettier: '^2.5.1',
             },
             commitlint: {
-                eslint: '^8.5.0',
-                'eslint-config-prettier': '^8.3.0',
-                'eslint-plugin-prettier': '^4.0.0',
-                prettier: '^2.5.1',
+                '@commitlint/cli': '^15.0.0',
+                '@commitlint/config-conventional': '^15.0.0',
+                commitizen: '^4.2.4',
+                'cz-conventional-changelog': '^3.3.0',
+                'cz-customizable': '^6.3.0',
+                husky: '^7.0.4',
+                'lint-staged': '^12.1.2',
             },
         }
 
