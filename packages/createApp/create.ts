@@ -1,28 +1,38 @@
-const path = require('path')
+import path from 'path'
 // const fs = require('fs-extra')
-const fs = require('fs')
-const inquirer = require('inquirer')
-const ora = require('ora')
-const downloadGitRepo = require('download-git-repo')
-const util = require('util')
+import fs from 'fs'
 
-const FileUtil = require('../../utils/file')
+import inquirer from 'inquirer'
+import ora from 'ora'
+
+// import downloadGitRepo from 'download-git-repo'
+import util from 'util'
+
+import FileUtil from '../../utils/file'
 
 // const chalk = require('chalk')
 // const figlet = require('figlet')
 
 const { getRepoList } = require('../../lib/http')
 
+type TQuestions = {
+    name: string
+    type: string
+    message: string
+    default?: boolean
+    choices?: Record<string, string>[] | (() => void)
+}[]
+
 // 创建项目
 async function create(name, options) {
     // 当前命令行选择的目录
-    const cwd = process.cwd()
+    const cwd: string = process.cwd()
     console.log('cwd', cwd)
 
-    const targetDir = path.join(cwd, name)
+    const targetDir: string = path.join(cwd, name)
     console.log('target dir', targetDir)
 
-    const questions = [
+    const questions: TQuestions = [
         {
             name: 'eslint',
             type: 'confirm',
@@ -133,46 +143,43 @@ async function create(name, options) {
 }
 
 /* 从远端拉取模板 */
-async function downloadTemplate(targetDir) {
-    let repoList = []
-    try {
-        // const repo = await api.getRepoList()
-        repoList = await loading(getRepoList, 'Fetching template info...')
-    } catch (err) {
-        console.error('downloadTemplate error', err)
-    }
+// async function downloadTemplate(targetDir) {
+//     let repoList = []
+//     try {
+//         // const repo = await api.getRepoList()
+//         repoList = await loading(getRepoList, 'Fetching template info...')
+//     } catch (err) {
+//         console.error('downloadTemplate error', err)
+//     }
 
-    const repoNameList = repoList.map((repo) => repo.name)
+//     const repoNameList = repoList.map((repo) => repo.name)
 
-    const { name: repoName } = await inquirer.prompt([
-        {
-            name: 'name',
-            type: 'list',
-            choices: repoNameList,
-            message: 'please choose a template to create project.',
-        },
-    ])
+//     const { name: repoName } = await inquirer.prompt([
+//         {
+//             name: 'name',
+//             type: 'list',
+//             choices: repoNameList,
+//             message: 'please choose a template to create project.',
+//         },
+//     ])
 
-    const promiseDownloadGitRepo = util.promisify(downloadGitRepo)
+//     const promiseDownloadGitRepo = util.promisify(downloadGitRepo)
 
-    console.log('repoName', repoName)
-    // 下载地址 - default -> master
-    const downloadUrl = `j-cli-org/${repoName}`
+//     console.log('repoName', repoName)
+//     // 下载地址 - default -> master
+//     const downloadUrl = `j-cli-org/${repoName}`
 
-    loading(
-        promiseDownloadGitRepo,
-        'waiting download template',
-        downloadUrl,
-        path.resolve(process.cwd(), targetDir)
-    )
-}
+//     loading(
+//         promiseDownloadGitRepo,
+//         'waiting download template',
+//         downloadUrl,
+//         path.resolve(process.cwd(), targetDir)
+//     )
+// }
 
 /**
  * @desc 打印loading
- * @param {Function} fn
- * @param {string} msg
- * @param {string} errorMsg
- * @param {string} successMsg
+ * @param {any} fn
  */
 //
 async function loading(

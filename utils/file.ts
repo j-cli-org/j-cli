@@ -1,12 +1,12 @@
-const path = require('path')
+import path from 'path'
 
-const fs = require('fs')
+import fs from 'fs'
 
 /**
  * @param src source filename to copy
  * @param dest destination filename of the copy operation
  */
-function copy(src: string, dest: string) {
+function copy(src: string, dest: string): void {
     const stat = fs.statSync(src)
     if (stat.isDirectory()) {
         copyDir(src, dest)
@@ -19,8 +19,8 @@ function copy(src: string, dest: string) {
  * @param src source filename to copy
  * @param dest destination filename of the copy operation
  */
-function copyDir(srcDir: string, destDir: string) {
-    fs.mkDirSync(destDir, { recursive: true })
+function copyDir(srcDir: string, destDir: string): void {
+    fs.mkdirSync(destDir, { recursive: true })
     for (const file of fs.readdirSync(srcDir)) {
         const srcFile = path.resolve(srcDir, file)
         const destFile = path.resolve(destDir, file)
@@ -28,7 +28,21 @@ function copyDir(srcDir: string, destDir: string) {
     }
 }
 
-module.exports = {
+function remove(src: string): void {
+    if (!fs.existsSync(src)) return
+    const stat = fs.statSync(src)
+    if (stat.isDirectory()) {
+        if (!fs.readdirSync(src).length) return fs.rmdirSync(src)
+        for (const file of fs.readdirSync(src)) {
+            remove(path.resolve(src, file))
+        }
+    } else {
+        fs.rmSync(src)
+    }
+}
+
+export default {
     copy,
     copyDir,
+    remove,
 }

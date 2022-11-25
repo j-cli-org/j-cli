@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist",
+        "allowJs": true,
+        "checkJs": false,
+        "target": "ESNext",
+        // "noImplicitAny": true,
+        "sourceMap": true,
+        "resolveJsonModule": true,
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "lib": [
+            "ES6"
+        ]
+        // "noEmit": true
+    },
+    "include": [
+        "./package.json",
+        "./**/*"
+    ],
+    "exclude": [
+        "./packages/quickcommander",
+        "node_modules"
+    ],
+}
