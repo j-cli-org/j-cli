@@ -4,8 +4,8 @@
   "description": "personal cli tool",
   "main": "./dist/cli.bundle.js",
   "bin": {
-    "j-cli": "./bin/cli.bundle.js",
-    "jcli": "./bin/cli.ts"
+    "j-cli": "./dist/bin/cli.js",
+    "jcli": "./dist/bin/cli.js"
   },
   "scripts": {
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",

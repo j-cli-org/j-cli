@@ -12,15 +12,18 @@
         "esModuleInterop": true,
         "lib": [
             "ES6"
-        ]
+        ],
         // "noEmit": true
     },
     "include": [
-        "./package.json",
-        "./**/*"
+        "packages/**/*",
+        "bin/**/*",
+        "lib/**/*"
     ],
     "exclude": [
         "./packages/quickcommander",
-        "node_modules"
+        "node_modules",
+        "dist/**/*",
+        "bundle/**/*"
     ],
 }
