@@ -1,14 +1,14 @@
 import path from 'path'
 // const fs = require('fs-extra')
 import fs from 'fs'
-
 import inquirer from 'inquirer'
 import ora from 'ora'
 
 // import downloadGitRepo from 'download-git-repo'
 import util from 'util'
 
-import FileUtil from '../../utils/file'
+import FileUtil from '../utils/file'
+import * as Utils from '../utils/index'
 
 // const chalk = require('chalk')
 // const figlet = require('figlet')
@@ -52,8 +52,7 @@ async function create(name, options) {
             questions.push({
                 name: 'overwrite',
                 type: 'list',
-                message:
-                    'Target directory is already exist, please pick an action: ',
+                message: 'Target directory is already exist, please pick an action: ',
                 choices: [
                     { name: 'Overwrite', value: 'overwrite' },
                     { name: 'Cancel', value: 'cancel' },
@@ -77,15 +76,12 @@ async function create(name, options) {
         // await fs.rmdirSync(targetDir, { recursive: true })
         spinner.succeed('successfully overwrite')
     }
-    loading(
-        {
-            fn: _create,
-            msg: 'Creating project...',
-            errorMsg: 'Fetching failure... \n please retry.',
-            successMsg: 'create successfully🎉🎉🎉',
-        },
-        { name, options, answers, targetDir }
-    )
+    Utils.loading({
+        fn: _create,
+        msg: 'Creating project...',
+        errorMsg: 'Fetching failure... \n please retry.',
+        successMsg: 'create successfully🎉🎉🎉',
+    })({ name, options, answers, targetDir })
 
     async function _create(args) {
         const { name, options, answers, targetDir } = args
@@ -115,30 +111,19 @@ async function create(name, options) {
         fs.mkdirSync(targetDir)
 
         FileUtil.copy(sourceDirMap.common, targetDir)
-        const pkgInfo = JSON.parse(
-            fs.readFileSync(
-                path.resolve(__dirname, 'template/common/package.json'),
-                'utf-8'
-            )
-        )
+        const pkgInfo = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'template/common/package.json'), 'utf-8'))
         pkgInfo.name = name
         if (answers.eslint) {
             Object.assign(pkgInfo.devDependencies, devDependenciesMap.eslint)
             FileUtil.copy(sourceDirMap.eslint, targetDir)
         }
         if (answers.commitlint) {
-            Object.assign(
-                pkgInfo.devDependencies,
-                devDependenciesMap.commitlint
-            )
+            Object.assign(pkgInfo.devDependencies, devDependenciesMap.commitlint)
             pkgInfo.scripts.prepare = 'husky install'
             FileUtil.copy(sourceDirMap.commitlint, targetDir)
         }
 
-        fs.writeFileSync(
-            path.resolve(targetDir, 'package.json'),
-            JSON.stringify(pkgInfo)
-        )
+        fs.writeFileSync(path.resolve(targetDir, 'package.json'), JSON.stringify(pkgInfo))
     }
 }
 
@@ -176,26 +161,5 @@ async function create(name, options) {
 //         path.resolve(process.cwd(), targetDir)
 //     )
 // }
-
-/**
- * @desc 打印loading
- * @param {any} fn
- */
-//
-async function loading(
-    { fn, msg = 'loading...', errorMsg = '', successMsg = '' },
-    params
-) {
-    const spinner = ora(msg)
-    spinner.start()
-    try {
-        const result = await fn(params)
-        spinner.succeed(successMsg)
-        return result
-    } catch (e) {
-        console.log('error', e)
-        spinner.fail(errorMsg)
-    }
-}
 
 module.exports = create

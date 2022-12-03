@@ -4,25 +4,19 @@ module.exports = {
         commonjs: true,
         es2021: true,
     },
-    extends: [
-        'eslint:recommended',
-        'plugin:@typescript-eslint/recommended',
-        'plugin:prettier/recommended',
-    ],
+    extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
     parser: '@typescript-eslint/parser',
     parserOptions: {
         ecmaVersion: 13,
     },
     plugins: ['@typescript-eslint'],
     rules: {
-        'prettier/prettier': [
-            2,
-            { semi: false, singleQuote: true, tabWidth: 4 },
-        ],
+        'prettier/prettier': [2, { semi: false, singleQuote: true, tabWidth: 4, printWidth: 1000 }],
         'no-undef': 1,
         quotes: [2, 'single'],
         semi: [2, 'never'],
         '@typescript-eslint/no-var-requires': 'off',
         // '@typescript-eslint/typescript-eslint': [2, {'no-var-requires':1}]
+        '@typescript-eslint/ban-ts-comment': [1],
     },
 }

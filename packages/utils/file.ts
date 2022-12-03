@@ -41,8 +41,39 @@ function remove(src: string): void {
     }
 }
 
+function getFileExt(file: string): string {
+    const fileName: string = path.basename(file)
+    const arr: string[] = fileName.split('.')
+    return arr[arr.length - 1]
+}
+
+function getFileName(file: string): string {
+    const fileName: string = path.basename(file)
+    const arr: string[] = fileName.split('.')
+    arr.pop()
+    return arr.join('.')
+}
+
+function getInfo(file: string) {
+    return new Promise((resolve, reject) => {
+        if (!fs.existsSync(file)) return reject('file does not exist.')
+
+        const stat: fs.Stats = fs.statSync(file)
+        const info = {
+            isFile: stat.isFile(),
+            isDir: stat.isDirectory(),
+            fileNme: getFileName(file),
+            fileExt: getFileExt(file),
+        }
+        resolve(info)
+    })
+}
+
 export default {
     copy,
     copyDir,
     remove,
+    getFileExt,
+    getFileName,
+    getInfo,
 }
